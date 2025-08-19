@@ -139,7 +139,6 @@ class PatrimonioController {
                 
                 // Configurar cabeçalhos para HTML
                 header('Content-Type: text/html; charset=UTF-8');
-                header('Content-Disposition: attachment; filename="patrimonio_completo_' . date('Y-m-d_H-i-s') . '.html"');
                 
                 // Incluir o template de exportação com os dados do formulário
                 include APP_PATH . '/Views/patrimonio/export_all.php';
