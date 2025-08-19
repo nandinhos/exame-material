@@ -127,14 +127,29 @@
 " alt="Brasão" class="brasao">
         <h2>MINISTÉRIO DA DEFESA</h2>
         <h2>COMANDO DA AERONÁUTICA</h2>
-        <h2>INSTITUTO DE CONTROLE DO ESPAÇO AÉREO</h2>
+        <h2>GRUPO DE ACOMPANHAMENTO E CONTROLE DO PROGRAMA AERONAVE DE COMBATE</h2>
         <br>
         <p><strong>TERMO DE EXAME DE MATERIAL Nº <?= htmlspecialchars($numero_termo ?? '001/GACPAC/2025') ?>, <?= date('d/m/Y') ?>.</strong></p>
         <p><strong>Protocolo COMAER nº <?= htmlspecialchars($protocolo ?? 'PAG 67748.001565/2025-16') ?>.</strong></p>
         <br>
-        <p style="text-align: justify; margin: 0 20px; text-indent: 2.5cm;">
-            <?= nl2br(htmlspecialchars($corpo_documento ?? '')) ?>
-        </p>
+        <div style="text-align: justify; margin: 0 20px; line-height: 1.6;">
+             <?php 
+             $corpo_formatado = htmlspecialchars($corpo_documento ?? '');
+             // Divide o texto em parágrafos e aplica formatação
+             $paragrafos = explode("\n", $corpo_formatado);
+             $primeiro_paragrafo = true;
+             foreach ($paragrafos as $paragrafo) {
+                 $paragrafo = trim($paragrafo);
+                 if (!empty($paragrafo)) {
+                     if (!$primeiro_paragrafo) {
+                         echo '<br>'; // Quebra de linha simples entre parágrafos
+                     }
+                     echo '<p style="text-indent: 2.5cm; margin: 0;">' . $paragrafo . '</p>';
+                     $primeiro_paragrafo = false;
+                 }
+             }
+             ?>
+         </div>
         
         <br>
         

@@ -90,20 +90,42 @@
                         </div>
 
                         <div>
-                            <label for="corpo_documento" class="block text-sm font-medium text-gray-700 mb-2">
-                                <svg class="w-4 h-4 text-primary-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
-                                </svg>
-                                Corpo do Documento
-                            </label>
+                            <div class="flex items-center justify-between mb-2">
+                                <label for="corpo_documento" class="block text-sm font-medium text-gray-700">
+                                    <svg class="w-4 h-4 text-primary-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
+                                    </svg>
+                                    Corpo do Documento
+                                </label>
+                                <button type="button" 
+                                        onclick="adicionarParagrafo()" 
+                                        class="inline-flex items-center px-3 py-1.5 bg-primary-500 hover:bg-primary-600 text-white text-sm font-medium rounded-lg transition-colors duration-200">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                    </svg>
+                                    Adicionar Parágrafo
+                                </button>
+                            </div>
                             <textarea id="corpo_documento" 
                                       name="corpo_documento" 
-                                      rows="6" 
+                                      rows="8" 
                                       required
                                       placeholder="Ex: A Comissão, abaixo assinada, designada no Bol. Int. Ostensivo n° 110 de 20/06/2023..."
-                                      class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 resize-y">A Comissão abaixo assinada, designada pela Portaria GAC-PAC nº 25/SAD, de 03 de junho de 2025, publicada no Boletim Interno Ostensivo do GAP-SJ nº 105, de 09 de junho de 2025, reuniu-se nas dependências do Grupo de Acompanhamento e Controle - Programa Aeronave de Combate (GAC-PAC), para examinar as condições de materiais de informática, conforme estabelecido no Manual Eletrônico de Administração de Bens Patrimoniais, do RCA 12-1 - Regulamento de Administração da Aeronáutica, na forma eletrônica (RADA-e).
-    A Comissão, após análise documental dos BMP dos ativos de TI, realizou inspeção física dos itens e com o suporte do efetivo da ATI do GAC-PAC, confeccionou laudos técnicos individuais para ratificar a condição do material a fim de auxiliar na futura destinação do material.</textarea>
-                            <p class="text-sm text-gray-500 mt-2">Digite o texto principal que aparecerá no corpo do documento.</p>
+                                      class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 resize-y font-mono text-sm leading-relaxed">        A Comissão abaixo assinada, designada pela Portaria GAC-PAC nº 25/SAD, de 03 de junho de 2025, publicada no Boletim Interno Ostensivo do GAP-SJ nº 105, de 09 de junho de 2025, reuniu-se nas dependências do Grupo de Acompanhamento e Controle - Programa Aeronave de Combate (GAC-PAC), para examinar as condições de materiais de informática, conforme estabelecido no Manual Eletrônico de Administração de Bens Patrimoniais, do RCA 12-1 - Regulamento de Administração da Aeronáutica, na forma eletrônica (RADA-e).
+        A Comissão, após análise documental dos BMP dos ativos de TI, realizou inspeção física dos itens e com o suporte do efetivo da ATI do GAC-PAC, confeccionou laudos técnicos individuais para ratificar a condição do material a fim de auxiliar na futura destinação do material.</textarea>
+                            <div class="flex items-start justify-between mt-2">
+                                <p class="text-sm text-gray-500">Digite o texto principal que aparecerá no corpo do documento.</p>
+                                <div class="text-xs text-gray-400 ml-4">
+                                    <div class="flex items-center mb-1">
+                                        <div class="w-2 h-2 bg-primary-500 rounded-full mr-2"></div>
+                                        <span>Cada parágrafo com tabulação de 2,5cm</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="w-2 h-2 bg-accent-500 rounded-full mr-2"></div>
+                                        <span>Linha em branco entre parágrafos</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div>
@@ -205,5 +227,59 @@
         </div>
     </div>
 </div>
+
+<script>
+function adicionarParagrafo() {
+    const textarea = document.getElementById('corpo_documento');
+    const cursorPos = textarea.selectionStart;
+    const textoBefore = textarea.value.substring(0, cursorPos);
+    const textoAfter = textarea.value.substring(cursorPos);
+    
+    // Verifica se já estamos no final de uma linha ou se precisamos adicionar quebra
+    let novoTexto = '';
+    
+    // Se não estamos no início do textarea e o último caractere não é uma quebra de linha
+    if (textoBefore.length > 0 && !textoBefore.endsWith('\n')) {
+        novoTexto += '\n';
+    }
+    
+    // Adiciona nova linha com tabulação (aproximadamente 2,5cm = 8 espaços)
+    novoTexto += '        ';
+    
+    // Atualiza o valor do textarea
+    textarea.value = textoBefore + novoTexto + textoAfter;
+    
+    // Posiciona o cursor após a tabulação
+    const novaPosicao = cursorPos + novoTexto.length;
+    textarea.setSelectionRange(novaPosicao, novaPosicao);
+    
+    // Foca no textarea
+    textarea.focus();
+    
+    // Ajusta a altura do textarea se necessário
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+}
+
+// Adiciona evento para ajustar altura automaticamente
+document.addEventListener('DOMContentLoaded', function() {
+    const textarea = document.getElementById('corpo_documento');
+    
+    // Função para ajustar altura
+    function ajustarAltura() {
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+    }
+    
+    // Ajusta altura inicial
+    ajustarAltura();
+    
+    // Ajusta altura quando o conteúdo muda
+    textarea.addEventListener('input', ajustarAltura);
+    textarea.addEventListener('paste', function() {
+        setTimeout(ajustarAltura, 10);
+    });
+});
+</script>
 
 <?php include APP_PATH . '/Views/templates/footer.php'; ?>
