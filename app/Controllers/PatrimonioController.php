@@ -129,6 +129,18 @@ class PatrimonioController {
             $corpo_documento = $_POST['corpo_documento'] ?? '';
             $oficio = $_POST['oficio'] ?? '';
             
+            // Processar campos de assinatura e término do documento
+            $local_assinatura = $_POST['local_assinatura'] ?? '';
+            $data_assinatura = $_POST['data_assinatura'] ?? '';
+            $local_data = !empty($local_assinatura) && !empty($data_assinatura) ? $local_assinatura . ', ' . $data_assinatura : '';
+            $presidente_nome = $_POST['presidente_nome'] ?? '';
+            $membros = $_POST['membros'] ?? [];
+            $confere_local = $_POST['confere_local'] ?? '';
+            $confere_data = $_POST['confere_data'] ?? '';
+            $confere_local_data = !empty($confere_local) && !empty($confere_data) ? $confere_local . ', ' . $confere_data : '';
+            $agente_controle_nome = $_POST['agente_controle'] ?? '';
+            $texto_final = $_POST['texto_final'] ?? '';
+            
             try {
                 $patrimonios = $this->patrimonioModel->getAll();
                 

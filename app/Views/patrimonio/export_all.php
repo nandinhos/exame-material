@@ -38,10 +38,21 @@
         
         .brasao {
             display: block;
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             margin: 0 auto 15px;
             object-fit: contain;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        @media print {
+            .brasao {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                display: block !important;
+                visibility: visible !important;
+            }
         }
         
         .item-container {
@@ -139,8 +150,7 @@
 <body>
     <div class="header">        <h1>Termo de Exame de Material</h1>
         <br>
-        <img src="data:image/png;base64,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
-" alt="Brasão" class="brasao">
+        <img src="../brasão.png" alt="Brasão" class="brasao">
         <h2>MINISTÉRIO DA DEFESA</h2>
         <h2>COMANDO DA AERONÁUTICA</h2>
         <h2>GRUPO DE ACOMPANHAMENTO E CONTROLE DO PROGRAMA AERONAVE DE COMBATE</h2>
@@ -247,9 +257,81 @@
         </table>
     <?php endforeach; ?>
     
-    <div style="margin-top: 50px; text-align: center; font-size: 10px;">
-        <p>Documento gerado automaticamente em <?= date('d/m/Y H:i:s') ?></p>
-        <p>Total de itens: <?= count($patrimonios) ?></p>
+    <!-- Seção de Assinaturas e Término do Documento -->
+    <?php if (!empty($local_data) || !empty($presidente_nome) || !empty($membros) || !empty($confere_local_data) || !empty($agente_controle_nome) || !empty($texto_final)): ?>
+    <div style="page-break-before: always; margin-top: 50px; font-family: Arial, sans-serif; font-size: 12px; line-height: 1.6;">
+        
+        <!-- Texto Fixo Padrão -->
+        <div style="margin-bottom: 30px; text-align: right;">
+            E para constar, foi lavrado o constante termo,
+            
+        </div>
+        
+        <!-- Local e Data -->
+        <?php if (!empty($local_data)): ?>
+        <div style="margin-bottom: 40px; text-align: right;">
+            <?= htmlspecialchars($local_data) ?>
+        </div>
+        <?php endif; ?>
+        
+        <!-- Assinaturas da Comissão -->
+        <div style="margin-bottom: 50px;">
+            <!-- Presidente -->
+            <?php if (!empty($presidente_nome)): ?>
+            <div style="margin-bottom: 40px; text-align: center;">
+                <div style="border-bottom: 1px solid #000; width: 300px; margin: 0 auto 10px; height: 40px;"></div>
+                <div style="font-weight: bold;"><?= htmlspecialchars($presidente_nome) ?></div>
+                <div>Presidente</div>
+            </div>
+            <?php endif; ?>
+            
+            <!-- Membros -->
+            <?php if (!empty($membros) && is_array($membros)): ?>
+                <?php foreach ($membros as $membro): ?>
+                    <?php if (!empty($membro)): ?>
+                    <div style="margin-bottom: 40px; text-align: center;">
+                        <div style="border-bottom: 1px solid #000; width: 300px; margin: 0 auto 10px; height: 40px;"></div>
+                        <div style="font-weight: bold;"><?= htmlspecialchars($membro) ?></div>
+                        <div>Membro</div>
+                    </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+        
+        <!-- Seção Confere -->
+        <?php if (!empty($confere_local_data) || !empty($agente_controle_nome)): ?>
+        <div style="margin-top: 60px;">
+            <div style="font-weight: bold; margin-bottom: 20px;">Confere:</div>
+            
+            <!-- Local e Data do Confere -->
+            <?php if (!empty($confere_local_data)): ?>
+            <div style="margin-bottom: 30px; text-align: right;">
+                <?= htmlspecialchars($confere_local_data) ?>
+            </div>
+            <?php endif; ?>
+            
+            <!-- Agente de Controle Interno -->
+            <?php if (!empty($agente_controle_nome)): ?>
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div style="border-bottom: 1px solid #000; width: 300px; margin: 0 auto 10px; height: 40px;"></div>
+                <div style="font-weight: bold;"><?= htmlspecialchars($agente_controle_nome) ?></div>
+                <div>Agente de Controle Interno</div>
+            </div>
+            <?php endif; ?>
+        </div>
+        <?php endif; ?>
+        
+        <!-- Texto Final Personalizável -->
+        <?php if (!empty($texto_final)): ?>
+        <div style="margin-top: 30px; text-align: justify;">
+            <?= nl2br(htmlspecialchars($texto_final)) ?>
+        </div>
+        <?php endif; ?>
+        
     </div>
+    <?php endif; ?>
+    
+
 </body>
 </html>

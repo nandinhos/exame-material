@@ -145,6 +145,198 @@
                             <p class="text-sm text-gray-500 mt-2">Informe o número do ofício relacionado aos itens.</p>
                         </div>
 
+                        <!-- Seção de Configurações de Assinatura -->
+                        <div class="border-t border-gray-200 pt-6">
+                            <div class="flex items-center mb-6">
+                                <div class="bg-accent-500 p-2 rounded-lg mr-3">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-900">Configurações de Assinatura</h3>
+                            </div>
+
+                            <!-- Local e Data -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="local_assinatura" class="block text-sm font-medium text-gray-700 mb-2">
+                                        <svg class="w-4 h-4 text-primary-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        </svg>
+                                        Local
+                                    </label>
+                                    <input type="text" 
+                                           id="local_assinatura" 
+                                           name="local_assinatura" 
+                                           value="São José dos Campos" 
+                                           placeholder="Ex: São José dos Campos"
+                                           required
+                                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200">
+                                </div>
+                                <div>
+                                    <label for="data_assinatura" class="block text-sm font-medium text-gray-700 mb-2">
+                                        <svg class="w-4 h-4 text-primary-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                        </svg>
+                                        Data
+                                    </label>
+                                    <input type="text" 
+                                           id="data_assinatura" 
+                                           name="data_assinatura" 
+                                           value="19 de Agosto de 2025" 
+                                           placeholder="Ex: 19 de Agosto de 2025        s"
+                                           required
+                                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200">
+                                </div>
+                            </div>
+
+                            <!-- Presidente -->
+                            <div class="mb-6">
+                                <label for="presidente_nome" class="block text-sm font-medium text-gray-700 mb-2">
+                                    <svg class="w-4 h-4 text-primary-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    Nome do Presidente
+                                </label>
+                                <input type="text" 
+                                       id="presidente_nome" 
+                                       name="presidente_nome" 
+                                       value="Gustavo Luiz Franco - 2° Ten QOEA SUP" 
+                                       placeholder="Ex: Nome Completo e Posto"
+                                       required
+                                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200">
+                            </div>
+
+                            <!-- Membros -->
+                            <div class="mb-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <label class="block text-sm font-medium text-gray-700">
+                                        <svg class="w-4 h-4 text-primary-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                        </svg>
+                                        Membros da Comissão
+                                    </label>
+                                    <button type="button" 
+                                            onclick="adicionarMembro()" 
+                                            class="inline-flex items-center px-3 py-1.5 bg-primary-500 hover:bg-primary-600 text-white text-sm font-medium rounded-lg transition-colors duration-200">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                        </svg>
+                                        Adicionar Membro
+                                    </button>
+                                </div>
+                                <div id="membros-container">
+                                    <div class="membro-item mb-3 flex items-center gap-3">
+                                        <input type="text" 
+                                               name="membros[]" 
+                                               value="Fernando dos Santos Souza 1S BMB" 
+                                               placeholder="Nome Completo e Posto do Membro"
+                                               required
+                                               class="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200">
+                                        <button type="button" 
+                                                onclick="removerMembro(this)" 
+                                                class="px-3 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors duration-200">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="membro-item mb-3 flex items-center gap-3">
+                                        <input type="text" 
+                                               name="membros[]" 
+                                               value="Paulo de Tarso Freitas Barbosa - 3S QSCon" 
+                                               placeholder="Nome Completo e Posto do Membro"
+                                               required
+                                               class="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200">
+                                        <button type="button" 
+                                                onclick="removerMembro(this)" 
+                                                class="px-3 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors duration-200">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    
+
+                                </div>
+                            </div>
+
+                            <!-- Seção Confere -->
+                            <div class="border-t border-gray-200 pt-6 mb-6">
+                                <h4 class="text-md font-semibold text-gray-900 mb-4">Seção "Confere"</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                                    <div>
+                                        <label for="confere_local" class="block text-sm font-medium text-gray-700 mb-2">
+                                            <svg class="w-4 h-4 text-primary-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                            </svg>
+                                            Local (Confere)
+                                        </label>
+                                        <input type="text" 
+                                               id="confere_local" 
+                                               name="confere_local" 
+                                               value="São José dos Campos" 
+                                               placeholder="Ex: São José dos Campos"
+                                               required
+                                               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200">
+                                    </div>
+                                    <div>
+                                        <label for="confere_data" class="block text-sm font-medium text-gray-700 mb-2">
+                                            <svg class="w-4 h-4 text-primary-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                            </svg>
+                                            Data (Confere)
+                                        </label>
+                                        <input type="text" 
+                                               id="confere_data" 
+                                               name="confere_data" 
+                                               value="19 de Agosto de 2025" 
+                                               placeholder="Ex: 19 de Agosto de 2025"
+                                               required
+                                               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="agente_controle" class="block text-sm font-medium text-gray-700 mb-2">
+                                        <svg class="w-4 h-4 text-primary-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                        Agente de Controle Interno
+                                    </label>
+                                    <input type="text" 
+                                           id="agente_controle" 
+                                           name="agente_controle" 
+                                           value="Renan de Lacerda Lima Gonçalves Cap Int" 
+                                           placeholder="Nome Completo e Posto do Agente"
+                                           required
+                                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200">
+                                </div>
+                            </div>
+
+                            <!-- Campo de Texto Personalizado -->
+                            <div>
+                                <label for="texto_final" class="block text-sm font-medium text-gray-700 mb-2">
+                                    <svg class="w-4 h-4 text-primary-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
+                                    </svg>
+                                    Texto Final Personalizado
+                                </label>
+                                <textarea id="texto_final" 
+                                          name="texto_final" 
+                                          rows="4" 
+                                          placeholder="Digite aqui qualquer texto adicional que deve aparecer no final do documento..."
+                                          class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 resize-y">Em consequência dos atos apontados pela Comissão designada, determino a Seção de Registro que:
+
+1. Exclua o material examinado da Carga desta Unidade, Seja imputado o prejuízo ao Estado;
+2. Devido à inconveniência de alienação seja o material doado conforme o Item 2.15.18 (c) do RCA, RADA-e de 21 de janeiro de 2021;
+3. Publique em Boletim Interno o presente termo; e
+4. Arquive no ePAG (módulo do SILOMS).</textarea>
+                                <p class="text-sm text-gray-500 mt-2">Este texto aparecerá no final do documento, após as assinaturas.</p>
+                            </div>
+                        </div>
+
                         <div class="flex flex-col sm:flex-row gap-3 sm:justify-end pt-6 border-t border-gray-200">
                             <a href="<?= url('patrimonio') ?>" class="inline-flex items-center justify-center px-6 py-2.5 bg-secondary-500 hover:bg-secondary-600 text-white font-medium rounded-lg transition-colors duration-200">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -261,23 +453,71 @@ function adicionarParagrafo() {
     textarea.style.height = textarea.scrollHeight + 'px';
 }
 
+function adicionarMembro() {
+    const container = document.getElementById('membros-container');
+    const novoMembro = document.createElement('div');
+    novoMembro.className = 'membro-item mb-3 flex items-center gap-3';
+    
+    novoMembro.innerHTML = `
+        <input type="text" 
+               name="membros[]" 
+               placeholder="Nome Completo e Posto do Membro"
+               required
+               class="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200">
+        <button type="button" 
+                onclick="removerMembro(this)" 
+                class="px-3 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors duration-200">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+        </button>
+    `;
+    
+    container.appendChild(novoMembro);
+    
+    // Foca no novo input
+    const novoInput = novoMembro.querySelector('input');
+    novoInput.focus();
+}
+
+function removerMembro(button) {
+    const container = document.getElementById('membros-container');
+    const membros = container.querySelectorAll('.membro-item');
+    
+    // Não permite remover se há apenas um membro
+    if (membros.length <= 1) {
+        alert('É necessário ter pelo menos um membro na comissão.');
+        return;
+    }
+    
+    const membroItem = button.closest('.membro-item');
+    membroItem.remove();
+}
+
 // Adiciona evento para ajustar altura automaticamente
 document.addEventListener('DOMContentLoaded', function() {
     const textarea = document.getElementById('corpo_documento');
+    const textoFinal = document.getElementById('texto_final');
     
     // Função para ajustar altura
-    function ajustarAltura() {
-        textarea.style.height = 'auto';
-        textarea.style.height = textarea.scrollHeight + 'px';
+    function ajustarAltura(element) {
+        element.style.height = 'auto';
+        element.style.height = element.scrollHeight + 'px';
     }
     
     // Ajusta altura inicial
-    ajustarAltura();
+    ajustarAltura(textarea);
+    ajustarAltura(textoFinal);
     
     // Ajusta altura quando o conteúdo muda
-    textarea.addEventListener('input', ajustarAltura);
+    textarea.addEventListener('input', () => ajustarAltura(textarea));
     textarea.addEventListener('paste', function() {
-        setTimeout(ajustarAltura, 10);
+        setTimeout(() => ajustarAltura(textarea), 10);
+    });
+    
+    textoFinal.addEventListener('input', () => ajustarAltura(textoFinal));
+    textoFinal.addEventListener('paste', function() {
+        setTimeout(() => ajustarAltura(textoFinal), 10);
     });
 });
 </script>
