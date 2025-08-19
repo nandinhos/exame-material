@@ -3,37 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Ficha de Patrimônio</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        table, th, td {
-            border: 1px solid #000;
-        }
-        th, td {
-            padding: 5px;
-            vertical-align: top;
-        }
-        .titulo {
-            font-weight: bold;
-        }
-        @media print {
-            body {
-                margin: 0;
-                padding: 20px;
-            }
-            .no-print {
-                display: none;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../css/tailwind.min.css">
 </head>
-<body>
+<body class="export-body">
 
 <?php
 // ==============================
@@ -55,20 +27,22 @@
 // $outros_esclarecimentos  -> coluna 'outros_esclarecimentos'
 ?>
 
-<div class="no-print" style="margin-bottom: 20px; text-align: center;">
-    <button onclick="window.print()" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Imprimir/Salvar PDF</button>
-    <button onclick="window.close()" style="padding: 10px 20px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">Fechar</button>
+<div class="no-print margin-bottom-20 text-center">
+    <button onclick="window.print()" class="export-btn">Imprimir/Salvar PDF</button>
+    <button onclick="window.close()" class="export-btn export-btn-secondary">Fechar</button>
 </div>
 
-<table>
+<div class="export-container">
+
+<table class="export-table">
     <tr>
-        <th>CLASSE</th>
-        <th>BMP</th>
-        <th>NOMENCLATURA</th>
-        <th>QTD</th>
-        <th>DATA INCLUSÃO</th>
-        <th>PREÇO UNIT</th>
-        <th>PREÇO TOTAL</th>
+        <th class="export-titulo">CLASSE</th>
+        <th class="export-titulo">BMP</th>
+        <th class="export-titulo">NOMENCLATURA</th>
+        <th class="export-titulo">QTD</th>
+        <th class="export-titulo">DATA INCLUSÃO</th>
+        <th class="export-titulo">PREÇO UNIT</th>
+        <th class="export-titulo">PREÇO TOTAL</th>
     </tr>
     <tr>
         <td><?= $classe ?></td>
@@ -81,10 +55,10 @@
     </tr>
 </table>
 
-<table style="margin-top:-1px;">
-    <tr>
-        <td class="titulo" style="width:20%;">Estado do material</td>
-        <td class="titulo" style="width:80%;">Dano sofrido</td>
+<table class="export-table margin-top-minus-1">
+     <tr>
+         <td class="export-titulo width-20-percent">Estado do material</td>
+         <td class="export-titulo width-80-percent">Dano sofrido</td>
     </tr>
     <tr>
         <td><?= $estado_material ?></td>
@@ -92,12 +66,12 @@
     </tr>
 </table>
 
-<table style="margin-top:-1px;">
-    <tr>
-        <td class="titulo" style="width:25%;">Causa do Dano</td>
-        <td class="titulo" style="width:25%;">Motivo de Força Maior</td>
-        <td class="titulo" style="width:25%;">Responsável pelo Dano</td>
-        <td class="titulo" style="width:25%;">Matéria prima aproveitável</td>
+<table class="export-table margin-top-minus-1">
+     <tr>
+         <td class="export-titulo width-25-percent">Causa do Dano</td>
+         <td class="export-titulo width-25-percent">Motivo de Força Maior</td>
+         <td class="export-titulo width-25-percent">Responsável pelo Dano</td>
+         <td class="export-titulo width-25-percent">Matéria prima aproveitável</td>
     </tr>
     <tr>
         <td><?= $causa_dano ?></td>
@@ -107,9 +81,9 @@
     </tr>
 </table>
 
-<table style="margin-top:-1px;">
-    <tr>
-        <td class="titulo" style="width:100%;">Outros Esclarecimentos</td>
+<table class="export-table margin-top-minus-1">
+     <tr>
+         <td class="export-titulo width-100-percent">Outros Esclarecimentos</td>
     </tr>
     <tr>
         <td><?= $outros_esclarecimentos ?></td>

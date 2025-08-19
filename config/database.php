@@ -34,12 +34,20 @@ define('BASE_PATH', $publicPath);
 // Função para gerar URLs corretas
 function url($path = '') {
     $path = ltrim($path, '/');
-    // Para arquivos estáticos (css, js, images), usar URL completa
-    if (preg_match('/\.(css|js|png|jpg|jpeg|gif|svg|ico)$/i', $path)) {
-        return BASE_URL . ($path ? '/' . $path : '');
+    
+    // Detectar se estamos no servidor de desenvolvimento local
+    $isLocalDev = (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === 'localhost:8000');
+    
+    if ($isLocalDev) {
+        // No servidor de desenvolvimento, usar caminhos relativos
+        return '/' . $path;
+    } else {
+        // Em produção, usar caminho completo
+        if (preg_match('/\.(css|js|png|jpg|jpeg|gif|svg|ico)$/i', $path)) {
+            return BASE_URL . '/exame-material/public/' . $path;
+        }
+        return BASE_URL . '/exame-material/public' . ($path ? '/' . $path : '');
     }
-    // Para rotas do sistema, usar caminho relativo
-    return BASE_PATH . ($path ? '/' . $path : '');
 }
 
 // Função para gerar URLs completas

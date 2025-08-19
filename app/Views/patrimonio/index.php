@@ -222,7 +222,7 @@
                     </div>
                 <?php else: ?>
                     <!-- Desktop Table -->
-                    <div class="hidden lg:block overflow-x-auto">
+                    <div class="block overflow-x-auto">
                         <div class="min-w-full inline-block align-middle">
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
@@ -246,7 +246,7 @@
                     </div>
                     
                     <!-- Mobile Cards -->
-                    <div class="lg:hidden space-y-4 overflow-x-auto">
+                    <div class="hidden space-y-4 overflow-x-auto">
                         <?php foreach ($patrimonios as $item): ?>
                             <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
                                 <div class="flex justify-between items-start mb-3">

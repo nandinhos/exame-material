@@ -3,8 +3,8 @@
 # Habilitar rewrite engine
 RewriteEngine On
 
-# Definir diretório base
-RewriteBase /
+# Definir diretório base para produção
+RewriteBase /exame-material/public/
 
 # Redirecionar para index.php se o arquivo não existir
 RewriteCond %{REQUEST_FILENAME} !-f

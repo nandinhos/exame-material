@@ -71,8 +71,8 @@
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Redirecionar para a página de configuração
-                    window.location.href = '/exame-material/public/patrimonio/configure-export';
+                    // Redirecionar para a página de configuração de exportação
+                    window.location.href = '<?= url('patrimonio/configure-export') ?>';
                 }
             });
         }
@@ -104,7 +104,7 @@
                     });
                     
                     // Redirecionar para a rota de exclusão
-                    window.location.href = `/exame-material/public/patrimonio/delete/${id}`;
+                    window.location.href = `<?= url('patrimonio/delete') ?>/${id}`;
                 }
             });
         }

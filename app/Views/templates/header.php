@@ -5,34 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Gestão de Patrimônio</title>
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS Local para Produção -->
+    <link href="<?= url('css/tailwind.min.css') ?>" rel="stylesheet">
     
-    <!-- Configuração de cores personalizadas para o Tailwind -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <!-- Tailwind CSS customizado local (fallback) -->
+    <!-- Tailwind CSS customizado local -->
     <link href="<?= url('css/tailwind-custom.css') ?>" rel="stylesheet">
     
     <!-- Font Awesome com fallback melhorado -->
@@ -49,7 +25,7 @@
             onerror="this.onerror=null; console.warn('SweetAlert2 CDN falhou, carregando fallback'); loadSweetAlert2Fallback();"></script>
     
     <!-- Fallback local para SweetAlert2 -->
-    <script src="<?= url('js/sweetalert2-fallback.js') ?>" id="swal-fallback" style="display: none;"></script>
+    <script src="<?= url('js/sweetalert2-fallback.js') ?>" id="swal-fallback" class="display-none"></script>
     
     <!-- Script de gerenciamento de fallbacks -->
     <script>

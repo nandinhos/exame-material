@@ -4,133 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Termo de Exame de Material - Todos os Itens</title>
-    <style>
-        @page {
-            margin: 2cm;
-            size: A4;
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.4;
-            margin: 20px;
-            padding: 0;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            page-break-inside: avoid;
-        }
-        
-        .header h1 {
-            font-size: 14px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        
-        .header h2 {
-            font-size: 12px;
-            font-weight: bold;
-            margin: 5px 0;
-        }
-        
-        .brasao {
-            display: block;
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 15px;
-            object-fit: contain;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-        
-        @media print {
-            .brasao {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-                display: block !important;
-                visibility: visible !important;
-            }
-        }
-        
-        .item-container {
-            margin-bottom: 40px;
-            page-break-inside: avoid;
-            border: 1px solid #000;
-            padding: 15px;
-        }
-        
-        .item-title {
-            text-align: center;
-            font-weight: bold;
-            font-size: 12px;
-            margin-bottom: 15px;
-            text-decoration: underline;
-        }
-        
-        .info-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 0;
-        }
-        
-        .info-table th,
-        .info-table td {
-            border: 1px solid #000;
-            padding: 5px;
-            text-align: left;
-            vertical-align: top;
-        }
-        
-        .info-table th {
-            background-color: #e6e6e6;
-            font-weight: bold;
-            text-align: center;
-        }
-        
-        .details-section {
-            margin-top: 15px;
-        }
-        
-        .details-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .details-table td {
-            border: 1px solid #000;
-            padding: 5px;
-            vertical-align: top;
-        }
-        
-        .label {
-            font-weight: bold;
-            background-color: #e6e6e6;
-            width: 25%;
-        }
-        
-        .value {
-            width: 75%;
-        }
-        
-        .observations {
-            margin-top: 15px;
-            font-size: 10px;
-            line-height: 1.3;
-        }
-        
-        .page-break {
-            page-break-before: always;
-        }
-        
-        @media print {
-            .item-container {
-                page-break-inside: avoid;
-            }
-        }
-    </style>
+    <link href="<?= url('css/tailwind.min.css') ?>" rel="stylesheet">
     <script>
         // Função para abrir automaticamente a janela de impressão/PDF
         window.onload = function() {
@@ -147,8 +21,8 @@
         };
     </script>
 </head>
-<body>
-    <div class="header">        <h1>Termo de Exame de Material</h1>
+<body class="export-body">
+    <div class="export-header">        <h1>Termo de Exame de Material</h1>
         <br>
         <img src="../brasão.png" alt="Brasão" class="brasao">
         <h2>MINISTÉRIO DA DEFESA</h2>
@@ -158,7 +32,7 @@
         <p><strong>TERMO DE EXAME DE MATERIAL Nº <?= htmlspecialchars($numero_termo ?? '001/GACPAC/2025') ?>, <?= date('d/m/Y') ?>.</strong></p>
         <p><strong>Protocolo COMAER nº <?= htmlspecialchars($protocolo ?? 'PAG 67748.001565/2025-16') ?>.</strong></p>
         <br>
-        <div style="text-align: justify; margin: 0 20px; line-height: 1.6;">
+        <div class="text-justify margin-0-20 line-height-1-6">
              <?php 
              $corpo_formatado = htmlspecialchars($corpo_documento ?? '');
              // Divide o texto em parágrafos e aplica formatação
@@ -170,7 +44,7 @@
                      if (!$primeiro_paragrafo) {
                          echo '<br>'; // Quebra de linha simples entre parágrafos
                      }
-                     echo '<p style="text-indent: 2.5cm; margin: 0;">' . $paragrafo . '</p>';
+                     echo '<p class="text-indent-2-5 margin-0">' . $paragrafo . '</p>';
                      $primeiro_paragrafo = false;
                  }
              }
@@ -186,7 +60,7 @@
 
     <?php foreach ($patrimonios as $index => $item): ?>
         <?php if ($index > 0): ?>
-            <div style="margin-top: 30px;"></div>
+            <div class="margin-top-30"></div>
         <?php endif; ?>
         
         <table class="info-table">
@@ -216,8 +90,8 @@
         
         <table class="info-table">
             <tr>
-                <td class="label" style="width:20%;">Estado do material</td>
-                <td class="label" style="width:80%;">Dano sofrido</td>
+                <td class="export-label width-20-percent">Estado do material</td>
+                <td class="export-label width-80-percent">Dano sofrido</td>
                 
             </tr>
         </table>
@@ -227,32 +101,32 @@
                 
             </tr>
             <tr>
-                <td class="value" style="width:20%;"><?= htmlspecialchars($item['estado_material'] ?? 'Antieconômico') ?></td>
-                <td class="value" style="width:80%;"><?= htmlspecialchars($item['dano_sofrido'] ?? 'Em virtude do bem encontrar-se inoperante e sem condições de reparo, conforme Laudo Técnico: 74/ATTI/2021.') ?></td>
+                <td class="export-value width-20-percent"><?= htmlspecialchars($item['estado_material'] ?? 'Antieconômico') ?></td>
+                <td class="export-value width-80-percent"><?= htmlspecialchars($item['dano_sofrido'] ?? 'Em virtude do bem encontrar-se inoperante e sem condições de reparo, conforme Laudo Técnico: 74/ATTI/2021.') ?></td>
             </tr>
         </table>
         
         <table class="info-table">
             <tr>
-                <td class="label" style="width:20%;">Causa do Dano</td>
-                <td class="label" style="width:25%;">Motivo de Força Maior</td>
-                <td class="label" style="width:25%;">Responsável pelo Dano</td>
-                <td class="label" style="width:30%;">Matéria prima aproveitável</td>
+                <td class="export-label width-20-percent">Causa do Dano</td>
+                <td class="export-label width-25-percent">Motivo de Força Maior</td>
+                <td class="export-label width-25-percent">Responsável pelo Dano</td>
+                <td class="export-label width-30-percent">Matéria prima aproveitável</td>
             </tr>
             <tr>
-                <td class="value" style="width:20%;"><?= htmlspecialchars($item['causa_dano'] ?? 'Não há') ?></td>
-                <td class="value" style="width:25%;"><?= htmlspecialchars($item['motivo_forca_maior'] ?? 'Não há') ?></td>
-                <td class="value" style="width:25%;"><?= htmlspecialchars($item['responsavel_dano'] ?? 'Não há') ?></td>
-                <td class="value" style="width:30%;"><?= htmlspecialchars($item['materia_prima_aproveitavel'] ?? 'Não passível de alienação') ?></td>
+                <td class="export-value width-20-percent"><?= htmlspecialchars($item['causa_dano'] ?? 'Não há') ?></td>
+                <td class="export-value width-25-percent"><?= htmlspecialchars($item['motivo_forca_maior'] ?? 'Não há') ?></td>
+                <td class="export-value width-25-percent"><?= htmlspecialchars($item['responsavel_dano'] ?? 'Não há') ?></td>
+                <td class="export-value width-30-percent"><?= htmlspecialchars($item['materia_prima_aproveitavel'] ?? 'Não passível de alienação') ?></td>
             </tr>
         </table>
         
         <table class="info-table">
             <tr>
-                <td class="label" style="width:100%;">Outros Esclarecimentos</td>
+                <td class="export-label width-100-percent">Outros Esclarecimentos</td>
             </tr>
             <tr>
-                <td class="value"><?= htmlspecialchars($item['outros_esclarecimentos'] ?? 'Esta comissão sugere que o material seja descartado, conforme o item 2.14.8.1 do Manual eletrônico de Bens Patrimoniais – RADA-e, letras "c" e "e".') ?></td>
+                <td class="export-value width-100-percent"><?= htmlspecialchars($item['outros_esclarecimentos'] ?? 'Esta comissão sugere que o material seja descartado, conforme o item 2.14.8.1 do Manual eletrônico de Bens Patrimoniais – RADA-e, letras "c" e "e".') ?></td>
             </tr>
         </table>
     <?php endforeach; ?>
