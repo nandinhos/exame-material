@@ -1,0 +1,11 @@
+classe,bmp,nomenclatura,quantidade,data_inclusao,preco_unit,preco_total,estado_material,dano_sofrido,causa_dano,motivo_forca_maior,responsavel_dano,materia_prima_aproveitavel,outros_esclarecimentos
+"Móveis","BMP001","Mesa de escritório executiva",1,"2024-01-15",450.00,450.00,"Bom","","","","","","Mesa em MDF com gavetas"
+"Equipamentos","BMP002","Computador Dell Inspiron",1,"2024-01-16",2500.50,2500.50,"Excelente","","","","","","Intel i5, 8GB RAM, SSD 256GB"
+"Móveis","BMP003","Cadeira ergonômica",2,"2024-01-17",380.00,760.00,"Bom","","","","","","Cadeira com apoio lombar"
+"Equipamentos","BMP004","Monitor LED 24 polegadas",3,"2024-01-18",650.00,1950.00,"Excelente","","","","","","Full HD, entrada HDMI"
+"Veículos","BMP005","Impressora multifuncional",1,"2024-01-19",850.00,850.00,"Regular","Problema no scanner","Desgaste natural","","","","Necessita manutenção preventiva"
+"Móveis","BMP006","Armário de aço",1,"2024-01-20",320.00,320.00,"Bom","","","","","","4 portas, cor cinza"
+"Equipamentos","BMP007","Notebook Lenovo ThinkPad",1,"2024-01-21",3200.00,3200.00,"Excelente","","","","","","Intel i7, 16GB RAM, SSD 512GB"
+"Móveis","BMP008","Mesa de reunião",1,"2024-01-22",1200.00,1200.00,"Bom","","","","","","Mesa oval para 8 pessoas"
+"Equipamentos","BMP009","Projetor Epson",1,"2024-01-23",1800.00,1800.00,"Regular","Lâmpada com baixo brilho","Uso intensivo","","Setor TI","Lâmpada","Substituir lâmpada em breve"
+"Veículos","BMP010","Ar condicionado split",2,"2024-01-24",1500.00,3000.00,"Bom","","","","","","18.000 BTUs cada unidade"

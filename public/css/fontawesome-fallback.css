@@ -1,0 +1,335 @@
+/**
+ * Font Awesome Fallback - Ícones básicos usando CSS puro
+ * Substitui os ícones Font Awesome quando o CDN não está disponível
+ */
+
+/* Classe base para ícones */
+.fa, .fas, .far, .fab {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    font-family: 'Font Awesome Fallback';
+}
+
+/* Ícones usando Unicode e CSS */
+.fa-plus::before,
+.fa-plus-circle::before {
+    content: '+';
+    font-weight: bold;
+    background: #28a745;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8em;
+}
+
+.fa-edit::before,
+.fa-pencil-alt::before {
+    content: '✎';
+    color: #007bff;
+}
+
+.fa-trash::before,
+.fa-trash-alt::before {
+    content: '🗑';
+    color: #dc3545;
+}
+
+.fa-download::before {
+    content: '⬇';
+    color: #28a745;
+}
+
+.fa-upload::before {
+    content: '⬆';
+    color: #17a2b8;
+}
+
+.fa-file-csv::before {
+    content: '📄';
+    color: #28a745;
+}
+
+.fa-search::before {
+    content: '🔍';
+}
+
+.fa-filter::before {
+    content: '⚡';
+    color: #ffc107;
+}
+
+.fa-sort::before {
+    content: '↕';
+    color: #6c757d;
+}
+
+.fa-sort-up::before {
+    content: '↑';
+    color: #6c757d;
+}
+
+.fa-sort-down::before {
+    content: '↓';
+    color: #6c757d;
+}
+
+.fa-eye::before {
+    content: '👁';
+    color: #17a2b8;
+}
+
+.fa-check::before,
+.fa-check-circle::before {
+    content: '✓';
+    color: #28a745;
+    font-weight: bold;
+}
+
+.fa-times::before,
+.fa-times-circle::before {
+    content: '✗';
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.fa-exclamation::before,
+.fa-exclamation-triangle::before {
+    content: '⚠';
+    color: #ffc107;
+    font-weight: bold;
+}
+
+.fa-info::before,
+.fa-info-circle::before {
+    content: 'ℹ';
+    color: #17a2b8;
+    font-weight: bold;
+}
+
+.fa-question::before,
+.fa-question-circle::before {
+    content: '?';
+    color: #6f42c1;
+    font-weight: bold;
+    background: #6f42c1;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8em;
+}
+
+.fa-home::before {
+    content: '🏠';
+}
+
+.fa-user::before {
+    content: '👤';
+}
+
+.fa-users::before {
+    content: '👥';
+}
+
+.fa-cog::before,
+.fa-settings::before {
+    content: '⚙';
+    color: #6c757d;
+}
+
+.fa-list::before {
+    content: '☰';
+    color: #6c757d;
+}
+
+.fa-table::before {
+    content: '⊞';
+    color: #6c757d;
+}
+
+.fa-calendar::before {
+    content: '📅';
+}
+
+.fa-clock::before {
+    content: '🕐';
+}
+
+.fa-money-bill::before,
+.fa-dollar-sign::before {
+    content: '$';
+    color: #28a745;
+    font-weight: bold;
+}
+
+.fa-chart-bar::before {
+    content: '📊';
+}
+
+.fa-chart-line::before {
+    content: '📈';
+}
+
+.fa-print::before {
+    content: '🖨';
+}
+
+.fa-save::before {
+    content: '💾';
+    color: #007bff;
+}
+
+.fa-copy::before {
+    content: '📋';
+    color: #6c757d;
+}
+
+.fa-external-link-alt::before {
+    content: '🔗';
+    color: #007bff;
+}
+
+.fa-arrow-left::before {
+    content: '←';
+    color: #6c757d;
+}
+
+.fa-arrow-right::before {
+    content: '→';
+    color: #6c757d;
+}
+
+.fa-arrow-up::before {
+    content: '↑';
+    color: #6c757d;
+}
+
+.fa-arrow-down::before {
+    content: '↓';
+    color: #6c757d;
+}
+
+.fa-spinner::before {
+    content: '⟳';
+    animation: fa-spin 1s infinite linear;
+}
+
+.fa-loading::before {
+    content: '⟳';
+    animation: fa-spin 1s infinite linear;
+}
+
+/* Animação de rotação */
+@keyframes fa-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Tamanhos dos ícones */
+.fa-xs {
+    font-size: 0.75em;
+}
+
+.fa-sm {
+    font-size: 0.875em;
+}
+
+.fa-lg {
+    font-size: 1.33em;
+    line-height: 0.75em;
+    vertical-align: -0.0667em;
+}
+
+.fa-2x {
+    font-size: 2em;
+}
+
+.fa-3x {
+    font-size: 3em;
+}
+
+.fa-4x {
+    font-size: 4em;
+}
+
+.fa-5x {
+    font-size: 5em;
+}
+
+/* Rotação e transformações */
+.fa-rotate-90 {
+    transform: rotate(90deg);
+}
+
+.fa-rotate-180 {
+    transform: rotate(180deg);
+}
+
+.fa-rotate-270 {
+    transform: rotate(270deg);
+}
+
+.fa-flip-horizontal {
+    transform: scaleX(-1);
+}
+
+.fa-flip-vertical {
+    transform: scaleY(-1);
+}
+
+/* Cores personalizadas */
+.text-primary .fa::before {
+    color: #007bff !important;
+}
+
+.text-secondary .fa::before {
+    color: #6c757d !important;
+}
+
+.text-success .fa::before {
+    color: #28a745 !important;
+}
+
+.text-danger .fa::before {
+    color: #dc3545 !important;
+}
+
+.text-warning .fa::before {
+    color: #ffc107 !important;
+}
+
+.text-info .fa::before {
+    color: #17a2b8 !important;
+}
+
+.text-light .fa::before {
+    color: #f8f9fa !important;
+}
+
+.text-dark .fa::before {
+    color: #343a40 !important;
+}
+
+/* Espaçamento */
+.fa + span,
+span + .fa {
+    margin-left: 0.25em;
+}
+
+/* Fallback para quando Font Awesome não carrega */
+.fa-fallback-loaded .fa::before {
+    font-family: 'Font Awesome Fallback', sans-serif !important;
+}
+
+/* Indicador de que o fallback foi carregado */
+body::after {
+    content: '';
+    display: none;
+    font-family: 'Font Awesome Fallback Loaded';
+}
