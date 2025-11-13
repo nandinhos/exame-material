@@ -142,19 +142,40 @@ class PatrimonioController {
             $texto_final = $_POST['texto_final'] ?? '';
             
             try {
-                $patrimonios = $this->patrimonioModel->getAll();
-                
+                $ids = $_POST['ids'] ?? [];
+                $patrimonios = [];
+
+                if (is_array($ids) && !empty($ids)) {
+                    $patrimonios = $this->patrimonioModel->getByIds($ids);
+                }
+
+                if (empty($patrimonios)) {
+                    $search = $_POST['search'] ?? ($_GET['search'] ?? '');
+                    $classe = $_POST['classe'] ?? ($_GET['classe'] ?? '');
+                    $estado = $_POST['estado'] ?? ($_GET['estado'] ?? '');
+
+                    if (!empty($search)) {
+                        $patrimonios = $this->patrimonioModel->search($search);
+                    } elseif (!empty($classe)) {
+                        $patrimonios = $this->patrimonioModel->getByClasse($classe);
+                    } elseif (!empty($estado)) {
+                        $all = $this->patrimonioModel->getAll();
+                        $patrimonios = array_values(array_filter($all, function($p) use ($estado) {
+                            return isset($p['estado_material']) && $p['estado_material'] === $estado;
+                        }));
+                    } else {
+                        $patrimonios = $this->patrimonioModel->getAll();
+                    }
+                }
+
                 if (empty($patrimonios)) {
                     header('Location: /exame-material/public/patrimonio/configure-export?error=no_items');
                     exit;
                 }
-                
-                // Configurar cabeçalhos para HTML
+
                 header('Content-Type: text/html; charset=UTF-8');
-                
-                // Incluir o template de exportação com os dados do formulário
                 include APP_PATH . '/Views/patrimonio/export_all.php';
-                
+
             } catch (Exception $e) {
                 error_log("Erro na exportação completa: " . $e->getMessage());
                 header('Location: /exame-material/public/patrimonio/configure-export?error=export_failed');
@@ -162,7 +183,9 @@ class PatrimonioController {
             }
         } else {
             // Exibir formulário de configuração
+            include APP_PATH . '/Views/templates/header.php';
             include APP_PATH . '/Views/patrimonio/configure_export.php';
+            include APP_PATH . '/Views/templates/footer.php';
         }
     }
     
@@ -317,14 +340,29 @@ class PatrimonioController {
                 }
             }
             
+            // Normalização de quantidade
+            $qtd = isset($row[3]) && $row[3] !== '' ? intval($row[3]) : 1;
+            // Normalização de data (DD/MM/YYYY -> YYYY-MM-DD)
+            $dataIn = isset($row[4]) ? trim($row[4]) : null;
+            if (!empty($dataIn) && preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $dataIn)) {
+                $parts = explode('/', $dataIn);
+                $dataIn = $parts[2] . '-' . $parts[1] . '-' . $parts[0];
+            }
+            // Normalização de decimais (vírgula -> ponto)
+            $pu = floatval(str_replace(',', '.', $row[5] ?? '0'));
+            $pt = floatval(str_replace(',', '.', $row[6] ?? '0'));
+            if (($pt === 0.0 || $pt === null) && $pu > 0 && $qtd > 0) {
+                $pt = $pu * $qtd;
+            }
+
             $data = [
                 'classe' => $row[0] ?? null,
                 'bmp' => $row[1] ?? null,
                 'nomenclatura' => $row[2],
-                'quantidade' => intval($row[3] ?? 1),
-                'data_inclusao' => !empty($row[4]) ? $row[4] : null,
-                'preco_unit' => floatval($row[5] ?? 0),
-                'preco_total' => floatval($row[6] ?? 0),
+                'quantidade' => $qtd,
+                'data_inclusao' => !empty($dataIn) ? $dataIn : null,
+                'preco_unit' => $pu,
+                'preco_total' => $pt,
                 'estado_material' => $row[7] ?? null,
                 'dano_sofrido' => $row[8] ?? null,
                 'causa_dano' => $row[9] ?? null,
@@ -349,15 +387,40 @@ class PatrimonioController {
     }
     
     private function importFromCSV($filePath) {
+        if (!file_exists($filePath)) {
+            return ['imported' => 0, 'errors' => ['Arquivo CSV não encontrado']];
+        }
+
+        $lines = @file($filePath);
+        if ($lines === false || count($lines) === 0) {
+            return ['imported' => 0, 'errors' => ['Arquivo CSV vazio']];
+        }
+
+        $firstLine = $lines[0];
+        $commaCount = substr_count($firstLine, ',');
+        $semicolonCount = substr_count($firstLine, ';');
+        $delimiter = $semicolonCount >= $commaCount ? ';' : ',';
+
+        $csvData = [];
         if (($handle = fopen($filePath, 'r')) !== FALSE) {
-            $csvData = [];
-            while (($data = fgetcsv($handle, 0, ';', '"', '\\')) !== FALSE) {
-                $csvData[] = $data;
+            $first = true;
+            while (($data = fgetcsv($handle, 0, $delimiter, '"', '\\')) !== FALSE) {
+                if ($first && isset($data[0])) {
+                    $data[0] = preg_replace('/^\xEF\xBB\xBF/', '', $data[0]);
+                    $first = false;
+                }
+                // Trim e ignorar linha vazia
+                $trimmed = array_map(function($v){ return is_string($v) ? trim($v) : $v; }, $data);
+                if (count(array_filter($trimmed, function($v){ return $v !== null && $v !== ''; })) === 0) {
+                    continue;
+                }
+                $csvData[] = $trimmed;
             }
             fclose($handle);
-            
-            return $this->processImport($csvData);
+        } else {
+            return ['imported' => 0, 'errors' => ['Erro ao abrir arquivo CSV']];
         }
-        return ['imported' => 0, 'errors' => ['Erro ao abrir arquivo CSV']];
+
+        return $this->processImport($csvData);
     }
 }

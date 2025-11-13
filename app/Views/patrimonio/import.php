@@ -36,6 +36,17 @@
                                         Falha no upload do arquivo. Verifique o arquivo e tente novamente.
                                     <?php elseif ($_GET['error'] === 'file'): ?>
                                         Nenhum arquivo foi selecionado ou o arquivo está corrompido.
+                                    <?php elseif ($_GET['error'] === 'import'): ?>
+                                        Ocorreram erros ao processar o CSV:
+                                        <?php if (!empty($_GET['details'])): ?>
+                                            <ul class="mt-2 list-disc list-inside">
+                                            <?php foreach (explode('; ', $_GET['details']) as $d): ?>
+                                                <li><?= htmlspecialchars($d) ?></li>
+                                            <?php endforeach; ?>
+                                            </ul>
+                                        <?php else: ?>
+                                            Verifique o formato do arquivo e tente novamente.
+                                        <?php endif; ?>
                                     <?php else: ?>
                                         Ocorreu um erro inesperado. Verifique o arquivo e tente novamente.
                                     <?php endif; ?>
