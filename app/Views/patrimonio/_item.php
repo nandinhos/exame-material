@@ -1,5 +1,8 @@
 <tr class="hover:bg-gray-50 transition-colors duration-150">
     <td class="px-6 py-4 whitespace-nowrap">
+        <input type="checkbox" name="ids[]" value="<?= $item['id'] ?>" class="row-checkbox checkbox">
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap">
         <div class="flex flex-col">
             <div class="text-sm font-semibold text-gray-900"><?= htmlspecialchars($item['bmp'] ?? 'N/A') ?></div>
             <div class="text-xs text-gray-500">ID: <?= $item['id'] ?></div>
@@ -64,23 +67,23 @@
     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
         <div class="flex items-center space-x-1">
             <a href="<?= url('patrimonio/export/' . $item['id']) ?>" 
-               class="inline-flex items-center p-2.5 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-xl transition-all duration-200 group" 
+               class="btn btn-outline p-2" 
                title="Exportar PDF" 
-               target="_blank">
+               target="_blank" aria-pressed="false">
                 <svg class="w-4 h-4 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                 </svg>
             </a>
             <a href="<?= url('patrimonio/edit/' . $item['id']) ?>" 
-               class="inline-flex items-center p-2.5 text-amber-600 hover:text-amber-800 hover:bg-amber-50 rounded-xl transition-all duration-200 group" 
-               title="Editar">
+               class="btn btn-secondary p-2" 
+               title="Editar" aria-pressed="false">
                 <svg class="w-4 h-4 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                 </svg>
             </a>
             <button type="button" 
-                    class="inline-flex items-center p-2.5 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-xl transition-all duration-200 group" 
-                    title="Excluir" 
+                    class="btn btn-danger p-2" 
+                    title="Excluir" aria-pressed="false"
                     onclick="confirmDelete('<?= $item['id'] ?>', '<?= htmlspecialchars($item['bmp'] ?? 'N/A') ?>')">
                 <svg class="w-4 h-4 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>

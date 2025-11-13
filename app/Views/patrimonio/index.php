@@ -222,11 +222,30 @@
                     </div>
                 <?php else: ?>
                     <!-- Desktop Table -->
-                    <div class="block overflow-x-auto">
+                    <form id="export-selected-form" method="POST" action="<?= url('patrimonio/configure-export') ?>">
+                        <input type="hidden" name="search" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+                        <input type="hidden" name="classe" value="<?= htmlspecialchars($_GET['classe'] ?? '') ?>">
+                        <input type="hidden" name="estado" value="<?= htmlspecialchars($_GET['estado'] ?? '') ?>">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <label class="inline-flex items-center">
+                                    <input id="select-all" type="checkbox" class="form-checkbox rounded mr-2">
+                                    <span class="text-sm text-gray-700">Selecionar todos</span>
+                                </label>
+                                <button type="button" id="clear-selection" class="text-sm text-gray-600 hover:text-gray-800">Limpar seleção</button>
+                            </div>
+                            <button type="button" onclick="exportSelected()" class="inline-flex items-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-colors duration-200">
+                                <i class="fas fa-file-export mr-2"></i>
+                                Exportar Selecionados
+                            </button>
+                        </div>
                         <div class="min-w-full inline-block align-middle">
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
+                                            <span class="sr-only">Selecionar</span>
+                                        </th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">BMP</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nomenclatura</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Classe</th>
@@ -243,10 +262,10 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </form>
                     
                     <!-- Mobile Cards -->
-                    <div class="hidden space-y-4 overflow-x-auto">
+                    <div class="hidden space-y-4 overflow-x-auto" id="mobile-list">
                         <?php foreach ($patrimonios as $item): ?>
                             <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
                                 <div class="flex justify-between items-start mb-3">
@@ -254,6 +273,10 @@
                                         <h3 class="font-semibold text-gray-900"><?= htmlspecialchars($item['bmp']) ?></h3>
                                         <p class="text-sm text-gray-600"><?= htmlspecialchars($item['nomenclatura']) ?></p>
                                     </div>
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" name="ids[]" value="<?= $item['id'] ?>" form="export-selected-form" class="row-checkbox checkbox">
+                                        <span class="ml-2 text-xs text-gray-600">Selecionar</span>
+                                    </label>
                                     <?php 
                                         $badgeClasses = 'bg-gray-100 text-gray-800';
                                         if (stripos($item['estado_material'], 'bom') !== false) {
@@ -299,7 +322,7 @@
                     <!-- Summary Card -->
                     <div class="mt-8 bg-gray-50 rounded-lg p-6">
                         <h3 class="text-lg font-medium text-gray-900 mb-4 text-center sm:text-left">Resumo da Página</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <div class="text-center">
                                 <p class="text-2xl font-bold text-blue-600"><?= count($patrimonios) ?></p>
                                 <p class="text-sm text-gray-600">Itens listados</p>
@@ -312,10 +335,67 @@
                                 <p class="text-2xl font-bold text-purple-600"><?= array_sum(array_column($patrimonios, 'quantidade')) ?></p>
                                 <p class="text-sm text-gray-600">Quantidade total</p>
                             </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-orange-600" id="selected-count">0</p>
+                                <p class="text-sm text-gray-600">Selecionados para exportação</p>
+                            </div>
                         </div>
                     </div>
                 <?php endif; ?>
-            </div>
-        </div>
-    </div>
 </div>
+</div>
+</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const selectAll = document.getElementById('select-all');
+  const clearSelection = document.getElementById('clear-selection');
+  const selectedCountEl = document.getElementById('selected-count');
+  const form = document.getElementById('export-selected-form');
+
+  function getChecks() {
+    return form ? Array.from(form.querySelectorAll('.row-checkbox')) : [];
+  }
+
+  function updateCount() {
+    const checks = getChecks();
+    const total = checks.length;
+    const checked = checks.filter(cb => cb.checked).length;
+    if (selectedCountEl) selectedCountEl.textContent = checked;
+    if (selectAll) selectAll.checked = (checked === total && total > 0);
+  }
+
+  function setAll(checked) {
+    getChecks().forEach(cb => { cb.checked = checked; });
+    updateCount();
+  }
+
+  if (selectAll) {
+    selectAll.addEventListener('change', function() { setAll(selectAll.checked); });
+  }
+  if (clearSelection) {
+    clearSelection.addEventListener('click', function() { setAll(false); });
+  }
+  getChecks().forEach(cb => cb.addEventListener('change', updateCount));
+
+  updateCount();
+});
+
+function exportSelected() {
+  const form = document.getElementById('export-selected-form');
+  const checks = form ? Array.from(form.querySelectorAll('.row-checkbox')).filter(cb => cb.checked) : [];
+  if (checks.length === 0) {
+    Swal.fire({ icon: 'info', title: 'Seleção vazia', text: 'Marque ao menos um item para exportar.' });
+    return;
+  }
+  const ids = checks.map(cb => cb.value);
+  const params = new URLSearchParams(window.location.search);
+  const search = params.get('search') || '';
+  const classe = params.get('classe') || '';
+  const estado = params.get('estado') || '';
+  const base = '<?= url('patrimonio/configure-export') ?>';
+  const query = new URLSearchParams({ search, classe, estado, ids: ids.join(',') }).toString();
+  window.location.href = `${base}?${query}`;
+}
+</script>
