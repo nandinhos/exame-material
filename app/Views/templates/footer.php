@@ -4,42 +4,36 @@
     </main>
     
     <!-- Footer -->
-    <footer class="bg-secondary-800 text-white mt-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="bg-primary-500 p-2 rounded-lg">
-                            <i class="fas fa-building text-white text-lg"></i>
-                        </div>
-                        <h5 class="text-xl font-bold">Sistema de Patrimônio</h5>
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-primary-500 p-2 rounded-lg">
+                        <i class="fas fa-building text-white"></i>
                     </div>
-                    <p class="text-gray-300 leading-relaxed">
-                        Sistema moderno para gestão e controle de patrimônio empresarial com interface intuitiva e funcionalidades avançadas.
+                    <div>
+                        <h5 class="text-lg font-semibold text-gray-900">Sistema de Patrimônio</h5>
+                        <p class="text-sm text-gray-600">Gestão corporativa de bens com interface moderna.</p>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <p class="text-sm text-gray-500">
+                        Desenvolvido em <?= date('Y') ?> • PHP & Tailwind CSS
                     </p>
                 </div>
                 <div class="md:text-right">
-                    <p class="text-gray-300 mb-2">
-                        <span class="text-sm">
-                            Desenvolvido em <?= date('Y') ?> | 
-                            <i class="fas fa-code text-primary-400"></i> PHP & Tailwind CSS
-                        </span>
-                    </p>
-                    <div class="flex md:justify-end space-x-4 mt-4">
-                        <a href="#" class="text-gray-400 hover:text-primary-400 transition-colors duration-200">
+                    <div class="flex md:justify-end space-x-4">
+                        <a href="#" class="text-gray-500 hover:text-gray-700 transition-colors" aria-label="GitHub">
                             <i class="fab fa-github text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-primary-400 transition-colors duration-200">
+                        <a href="#" class="text-gray-500 hover:text-gray-700 transition-colors" aria-label="Contato">
                             <i class="fas fa-envelope text-xl"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            <hr class="border-gray-600 my-8">
-            <div class="text-center">
-                <p class="text-gray-400 text-sm">
-                    &copy; <?= date('Y') ?> Sistema de Patrimônio. Todos os direitos reservados.
-                </p>
+            <div class="mt-8 text-center">
+                <p class="text-xs text-gray-500">&copy; <?= date('Y') ?> Sistema de Patrimônio. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
@@ -71,8 +65,13 @@
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Redirecionar para a página de configuração de exportação
-                    window.location.href = '<?= url('patrimonio/configure-export') ?>';
+                    const params = new URLSearchParams(window.location.search);
+                    const search = params.get('search') || '';
+                    const classe = params.get('classe') || '';
+                    const estado = params.get('estado') || '';
+                    const base = '<?= url('patrimonio/configure-export') ?>';
+                    const query = new URLSearchParams({ search, classe, estado }).toString();
+                    window.location.href = `${base}${query ? ('?' + query) : ''}`;
                 }
             });
         }

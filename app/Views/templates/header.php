@@ -6,7 +6,8 @@
     <title>Sistema de Gestão de Patrimônio</title>
     
     <!-- Tailwind CSS Local para Produção -->
-    <link href="<?= url('css/tailwind.min.css') ?>" rel="stylesheet">
+    <link href="<?= url('css/tailwind.min.css') ?>" rel="stylesheet" id="tailwind-local">
+    
     
     <!-- Tailwind CSS customizado local -->
     <link href="<?= url('css/tailwind-custom.css') ?>" rel="stylesheet">
@@ -78,6 +79,7 @@
             if (!window.sweetAlert2Loaded && typeof window.Swal === 'undefined') {
                 loadSweetAlert2Fallback();
             }
+            // Mantemos apenas CSS local de Tailwind
         }, 2000);
     </script>
     
@@ -169,12 +171,12 @@
 </head>
 <body class="bg-gray-50 min-h-screen">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg border-b border-gray-200">
+    <nav class="bg-white shadow border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <a href="<?= url('patrimonio') ?>" class="flex items-center space-x-3 text-gray-800 hover:text-primary-600 transition-colors duration-200">
+                    <a href="<?= url('patrimonio') ?>" class="flex items-center space-x-3 text-gray-800 hover:text-primary-600 transition-colors duration-200" aria-current="page">
                         <div class="bg-primary-500 p-2 rounded-lg">
                             <i class="fas fa-building text-white text-lg"></i>
                         </div>
@@ -184,24 +186,24 @@
                 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-1">
-                    <a href="<?= url('patrimonio') ?>" class="flex items-center space-x-2 px-4 py-2 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200">
-                        <i class="fas fa-list"></i>
+                    <a href="<?= url('patrimonio') ?>" class="btn btn-secondary" aria-current="page">
+                        <i class="fas fa-list mr-2"></i>
                         <span>Listar Patrimônios</span>
                     </a>
-                    <a href="<?= url('patrimonio/import') ?>" class="flex items-center space-x-2 px-4 py-2 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200">
-                        <i class="fas fa-upload"></i>
+                    <a href="<?= url('patrimonio/import') ?>" class="btn btn-secondary">
+                        <i class="fas fa-upload mr-2"></i>
                         <span>Importar CSV</span>
                     </a>
-                    <button onclick="exportData()" class="flex items-center space-x-2 px-4 py-2 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200">
-                        <i class="fas fa-download"></i>
+                    <button onclick="exportData()" class="btn btn-outline" aria-pressed="false">
+                        <i class="fas fa-download mr-2"></i>
                         <span>Exportar</span>
                     </button>
                 </div>
                 
                 <!-- Mobile menu button -->
                 <div class="md:hidden">
-                    <button id="mobile-menu-button" class="p-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500">
-                        <i class="fas fa-bars text-lg"></i>
+                    <button id="mobile-menu-button" class="btn btn-secondary p-2" aria-pressed="false">
+                        <i class="fas fa-bars"></i>
                     </button>
                 </div>
             </div>
@@ -209,16 +211,16 @@
             <!-- Mobile Navigation -->
             <div id="mobile-menu" class="hidden md:hidden pb-4">
                 <div class="space-y-2">
-                    <a href="<?= url('patrimonio') ?>" class="flex items-center space-x-2 px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200">
-                        <i class="fas fa-list"></i>
+                    <a href="<?= url('patrimonio') ?>" class="btn btn-secondary w-full" aria-current="page">
+                        <i class="fas fa-list mr-2"></i>
                         <span>Listar Patrimônios</span>
                     </a>
-                    <a href="<?= url('patrimonio/import') ?>" class="flex items-center space-x-2 px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200">
-                        <i class="fas fa-upload"></i>
+                    <a href="<?= url('patrimonio/import') ?>" class="btn btn-secondary w-full">
+                        <i class="fas fa-upload mr-2"></i>
                         <span>Importar CSV</span>
                     </a>
-                    <button onclick="exportData()" class="flex items-center space-x-2 px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 w-full text-left">
-                        <i class="fas fa-download"></i>
+                    <button onclick="exportData()" class="btn btn-outline w-full text-left" aria-pressed="false">
+                        <i class="fas fa-download mr-2"></i>
                         <span>Exportar</span>
                     </button>
                 </div>
