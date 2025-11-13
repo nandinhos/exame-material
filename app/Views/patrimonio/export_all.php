@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,7 @@
                 window.print();
             }, 500);
         };
-        
+
         // Função para fechar a janela após a impressão (opcional)
         window.onafterprint = function() {
             // Opcional: fechar a janela após a impressão
@@ -21,8 +22,10 @@
         };
     </script>
 </head>
+
 <body class="export-body">
-    <div class="export-header">        <h1>Termo de Exame de Material</h1>
+    <div class="export-header">
+        <h1>Termo de Exame de Material</h1>
         <br>
         <img src="../brasão.png" alt="Brasão" class="brasao">
         <h2>MINISTÉRIO DA DEFESA</h2>
@@ -33,26 +36,26 @@
         <p><strong>Protocolo COMAER nº <?= htmlspecialchars($protocolo ?? 'PAG 67748.001565/2025-16') ?>.</strong></p>
         <br>
         <div class="text-justify margin-0-20 line-height-1-6">
-             <?php 
-             $corpo_formatado = htmlspecialchars($corpo_documento ?? '');
-             // Divide o texto em parágrafos e aplica formatação
-             $paragrafos = explode("\n", $corpo_formatado);
-             $primeiro_paragrafo = true;
-             foreach ($paragrafos as $paragrafo) {
-                 $paragrafo = trim($paragrafo);
-                 if (!empty($paragrafo)) {
-                     if (!$primeiro_paragrafo) {
-                         echo '<br>'; // Quebra de linha simples entre parágrafos
-                     }
-                     echo '<p class="text-indent-2-5 margin-0">' . $paragrafo . '</p>';
-                     $primeiro_paragrafo = false;
-                 }
-             }
-             ?>
-         </div>
-        
+            <?php
+            $corpo_formatado = htmlspecialchars($corpo_documento ?? '');
+            // Divide o texto em parágrafos e aplica formatação
+            $paragrafos = explode("\n", $corpo_formatado);
+            $primeiro_paragrafo = true;
+            foreach ($paragrafos as $paragrafo) {
+                $paragrafo = trim($paragrafo);
+                if (!empty($paragrafo)) {
+                    if (!$primeiro_paragrafo) {
+                        echo '<br>'; // Quebra de linha simples entre parágrafos
+                    }
+                    echo '<p class="text-indent-2-5 margin-0">' . $paragrafo . '</p>';
+                    $primeiro_paragrafo = false;
+                }
+            }
+            ?>
+        </div>
+
         <br>
-        
+
         <br>
         <p><strong>Seção do Material a ser analisado:</strong></p>
         <p><strong><?= htmlspecialchars($oficio ?? 'Ofício nº 29/ATI') ?>:</strong></p>
@@ -60,9 +63,9 @@
 
     <?php foreach ($patrimonios as $index => $item): ?>
         <?php if ($index > 0): ?>
-            <div class="margin-top-30"></div>
+            <div style="margin-top:12px"></div>
         <?php endif; ?>
-        
+
         <table class="info-table">
             <thead>
                 <tr>
@@ -87,25 +90,25 @@
                 </tr>
             </tbody>
         </table>
-        
+
         <table class="info-table">
             <tr>
                 <td class="export-label width-20-percent">Estado do material</td>
                 <td class="export-label width-80-percent">Dano sofrido</td>
-                
+
             </tr>
         </table>
-        
+
         <table class="info-table">
             <tr>
-                
+
             </tr>
             <tr>
                 <td class="export-value width-20-percent"><?= htmlspecialchars($item['estado_material'] ?? 'Antieconômico') ?></td>
                 <td class="export-value width-80-percent"><?= htmlspecialchars($item['dano_sofrido'] ?? 'Em virtude do bem encontrar-se inoperante e sem condições de reparo, conforme Laudo Técnico: 74/ATTI/2021.') ?></td>
             </tr>
         </table>
-        
+
         <table class="info-table">
             <tr>
                 <td class="export-label width-20-percent">Causa do Dano</td>
@@ -120,7 +123,7 @@
                 <td class="export-value width-30-percent"><?= htmlspecialchars($item['materia_prima_aproveitavel'] ?? 'Não passível de alienação') ?></td>
             </tr>
         </table>
-        
+
         <table class="info-table">
             <tr>
                 <td class="export-label width-100-percent">Outros Esclarecimentos</td>
@@ -130,82 +133,117 @@
             </tr>
         </table>
     <?php endforeach; ?>
-    
+
     <!-- Seção de Assinaturas e Término do Documento -->
     <?php if (!empty($local_data) || !empty($presidente_nome) || !empty($membros) || !empty($confere_local_data) || !empty($agente_controle_nome) || !empty($texto_final)): ?>
-    <div style="page-break-before: always; margin-top: 50px; font-family: Arial, sans-serif; font-size: 12px; line-height: 1.6;">
-        
-        <!-- Texto Fixo Padrão -->
-        <div style="margin-bottom: 30px; text-align: right;">
-            E para constar, foi lavrado o constante termo,
-            
-        </div>
-        
-        <!-- Local e Data -->
-        <?php if (!empty($local_data)): ?>
-        <div style="margin-bottom: 40px; text-align: right;">
-            <?= htmlspecialchars($local_data) ?>
-        </div>
-        <?php endif; ?>
-        
-        <!-- Assinaturas da Comissão -->
-        <div style="margin-bottom: 50px;">
-            <!-- Presidente -->
-            <?php if (!empty($presidente_nome)): ?>
-            <div style="margin-bottom: 40px; text-align: center;">
-                <div style="border-bottom: 1px solid #000; width: 300px; margin: 0 auto 10px; height: 40px;"></div>
-                <div style="font-weight: bold;"><?= htmlspecialchars($presidente_nome) ?></div>
-                <div>Presidente</div>
-            </div>
-            <?php endif; ?>
-            
-            <!-- Membros -->
-            <?php if (!empty($membros) && is_array($membros)): ?>
-                <?php foreach ($membros as $membro): ?>
-                    <?php if (!empty($membro)): ?>
-                    <div style="margin-bottom: 40px; text-align: center;">
-                        <div style="border-bottom: 1px solid #000; width: 300px; margin: 0 auto 10px; height: 40px;"></div>
-                        <div style="font-weight: bold;"><?= htmlspecialchars($membro) ?></div>
-                        <div>Membro</div>
-                    </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
-        
-        <!-- Seção Confere -->
-        <?php if (!empty($confere_local_data) || !empty($agente_controle_nome)): ?>
-        <div style="margin-top: 60px;">
-            <div style="font-weight: bold; margin-bottom: 20px;">Confere:</div>
-            
-            <!-- Local e Data do Confere -->
-            <?php if (!empty($confere_local_data)): ?>
+        <style>
+            .export-signatures {
+                margin-top: 16px;
+                page-break-before: auto;
+                page-break-inside: avoid;
+            }
+
+            .signature-group {
+                margin-bottom: 36px;
+                text-align: center;
+            }
+
+            .signature-area {
+                min-height: 40px;
+            }
+
+            .signature-line {
+                border-bottom: 1px solid #000;
+                width: 260px;
+                margin: 0 auto 6px;
+                height: 0;
+            }
+
+            .signature-label {
+                font-weight: bold;
+            }
+
+            .info-table {
+                page-break-inside: avoid;
+            }
+        </style>
+        <div class="export-signatures" style="font-family: Arial, sans-serif; font-size: 12px; line-height: 1.6;">
+
+            <!-- Texto Fixo Padrão -->
             <div style="margin-bottom: 30px; text-align: right;">
-                <?= htmlspecialchars($confere_local_data) ?>
+                E para constar, foi lavrado o constante termo,
+
             </div>
+
+            <!-- Local e Data -->
+            <?php if (!empty($local_data)): ?>
+                <div style="margin-bottom: 40px; text-align: right;">
+                    <?= htmlspecialchars($local_data) ?>
+                </div>
             <?php endif; ?>
-            
-            <!-- Agente de Controle Interno -->
-            <?php if (!empty($agente_controle_nome)): ?>
-            <div style="text-align: center; margin-bottom: 40px;">
-                <div style="border-bottom: 1px solid #000; width: 300px; margin: 0 auto 10px; height: 40px;"></div>
-                <div style="font-weight: bold;"><?= htmlspecialchars($agente_controle_nome) ?></div>
-                <div>Agente de Controle Interno</div>
+
+            <!-- Assinaturas da Comissão -->
+            <div>
+                <!-- Presidente -->
+                <?php if (!empty($presidente_nome)): ?>
+                    <div class="signature-group">
+                        <div class="signature-area"></div>
+                        <div class="signature-line"></div>
+                        <div class="signature-label"><?= htmlspecialchars($presidente_nome) ?></div>
+                        <div>Presidente</div>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Membros -->
+                <?php if (!empty($membros) && is_array($membros)): ?>
+                    <?php foreach ($membros as $membro): ?>
+                        <?php if (!empty($membro)): ?>
+                            <div class="signature-group">
+                                <div class="signature-area"></div>
+                                <div class="signature-line"></div>
+                                <div class="signature-label"><?= htmlspecialchars($membro) ?></div>
+                                <div>Membro</div>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
+
+            <!-- Seção Confere -->
+            <?php if (!empty($confere_local_data) || !empty($agente_controle_nome)): ?>
+                <div style="margin-top: 16px;">
+                    <div style="font-weight: bold; margin-bottom: 20px;">Confere:</div>
+
+                    <!-- Local e Data do Confere -->
+                    <?php if (!empty($confere_local_data)): ?>
+                        <div style="margin-bottom: 30px; text-align: right;">
+                            <?= htmlspecialchars($confere_local_data) ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Agente de Controle Interno -->
+                    <?php if (!empty($agente_controle_nome)): ?>
+                        <div class="signature-group">
+                            <div class="signature-area"></div>
+                            <div class="signature-line"></div>
+                            <div class="signature-label"><?= htmlspecialchars($agente_controle_nome) ?></div>
+                            <div>Agente de Controle Interno</div>
+                        </div>
+                    <?php endif; ?>
+                </div>
             <?php endif; ?>
+
+            <!-- Texto Final Personalizável -->
+            <?php if (!empty($texto_final)): ?>
+                <div style="margin-top: 16px; text-align: justify;">
+                    <?= nl2br(htmlspecialchars($texto_final)) ?>
+                </div>
+            <?php endif; ?>
+
         </div>
-        <?php endif; ?>
-        
-        <!-- Texto Final Personalizável -->
-        <?php if (!empty($texto_final)): ?>
-        <div style="margin-top: 30px; text-align: justify;">
-            <?= nl2br(htmlspecialchars($texto_final)) ?>
-        </div>
-        <?php endif; ?>
-        
-    </div>
     <?php endif; ?>
-    
+
 
 </body>
+
 </html>
