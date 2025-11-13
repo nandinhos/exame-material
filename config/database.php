@@ -1,7 +1,7 @@
 <?php
 
 // Configurações do Banco de Dados
-define('DB_HOST', '127.0.0.1');
+define('DB_HOST', 'localhost');
 define('DB_PORT', '3306');
 define('DB_NAME', 'exame');
 define('DB_USER', 'root');
@@ -32,12 +32,13 @@ define('BASE_URL', $protocol . '://' . $host);
 define('BASE_PATH', $publicPath);
 
 // Função para gerar URLs corretas
-function url($path = '') {
+function url($path = '')
+{
     $path = ltrim($path, '/');
-    
+
     // Detectar se estamos no servidor de desenvolvimento local
     $isLocalDev = (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === 'localhost:8000');
-    
+
     if ($isLocalDev) {
         // No servidor de desenvolvimento, usar caminhos relativos
         return '/' . $path;
@@ -51,7 +52,8 @@ function url($path = '') {
 }
 
 // Função para gerar URLs completas
-function fullUrl($path = '') {
+function fullUrl($path = '')
+{
     $path = ltrim($path, '/');
     return BASE_URL . ($path ? '/' . $path : '');
 }
@@ -115,5 +117,3 @@ INSERT INTO patrimonio (classe, bmp, nomenclatura, quantidade, data_inclusao, pr
 ('Informática', 'BMP004', 'Monitor Samsung 24 polegadas', 1, '2024-01-18', 650.00, 650.00, 'Bom'),
 ('Informática', 'BMP005', 'Impressora HP LaserJet', 1, '2024-01-19', 890.00, 890.00, 'Bom');
 */
-
-?>

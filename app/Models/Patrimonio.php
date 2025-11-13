@@ -98,6 +98,21 @@ class Patrimonio {
         return $this->db->fetchAll($sql);
     }
     
+    public function getByIds($ids) {
+        if (!is_array($ids) || empty($ids)) {
+            return [];
+        }
+        $filtered = array_values(array_filter(array_map(function($v){
+            return is_numeric($v) ? (int)$v : null;
+        }, $ids), function($v){ return $v !== null; }));
+        if (empty($filtered)) {
+            return [];
+        }
+        $placeholders = implode(',', array_fill(0, count($filtered), '?'));
+        $sql = "SELECT * FROM patrimonio WHERE id IN ($placeholders) ORDER BY id";
+        return $this->db->fetchAll($sql, $filtered);
+    }
+
     public function getPatrimoniosComDano() {
         $sql = "SELECT * FROM patrimonio WHERE dano_sofrido IS NOT NULL AND dano_sofrido != '' ORDER BY id";
         return $this->db->fetchAll($sql);
