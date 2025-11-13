@@ -1,4 +1,4 @@
-<?php include APP_PATH . '/Views/templates/header.php'; ?>
+<?php /* header é incluído pelo controller */ ?>
 
 <div class="min-h-screen bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -58,7 +58,35 @@
                     </div>
                     
                     <form method="POST" action="<?= url('patrimonio/configure-export') ?>" class="space-y-6">
+                        <?php
+                        $ids = $_POST['ids'] ?? $_GET['ids'] ?? [];
+                        if (is_string($ids)) { $ids = explode(',', $ids); }
+                        if (is_array($ids)) {
+                            $countIds = count($ids);
+                            foreach ($ids as $id) {
+                                $idInt = is_numeric($id) ? (int)$id : null;
+                                if ($idInt !== null) {
+                                    echo '<input type="hidden" name="ids[]" value="' . htmlspecialchars((string)$idInt) . '">';
+                                }
+                            }
+                        }
+                        ?>
+                        <input type="hidden" name="search" value="<?= htmlspecialchars($_GET['search'] ?? ($_POST['search'] ?? '')) ?>">
+                        <input type="hidden" name="classe" value="<?= htmlspecialchars($_GET['classe'] ?? ($_POST['classe'] ?? '')) ?>">
+                        <input type="hidden" name="estado" value="<?= htmlspecialchars($_GET['estado'] ?? ($_POST['estado'] ?? '')) ?>">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <?php if (!empty($ids) && is_array($ids)): ?>
+                                <div class="md:col-span-2">
+                                    <div class="bg-primary-50 border border-primary-200 rounded-lg p-4 mb-2">
+                                        <div class="flex items-center">
+                                            <svg class="w-5 h-5 text-primary-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                            </svg>
+                                            <span class="text-sm text-gray-800">Itens selecionados para exportação: <strong><?= (int)($countIds ?? 0) ?></strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                             <div>
                                 <label for="numero_termo" class="block text-sm font-medium text-gray-700 mb-2">
                                     <svg class="w-4 h-4 text-primary-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -338,13 +366,13 @@
                         </div>
 
                         <div class="flex flex-col sm:flex-row gap-3 sm:justify-end pt-6 border-t border-gray-200">
-                            <a href="<?= url('patrimonio') ?>" class="inline-flex items-center justify-center px-6 py-2.5 bg-secondary-500 hover:bg-secondary-600 text-white font-medium rounded-lg transition-colors duration-200">
+                            <a href="<?= url('patrimonio') ?>" class="btn btn-secondary">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                 </svg>
                                 Cancelar
                             </a>
-                            <button type="submit" class="inline-flex items-center justify-center px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-200">
+                            <button type="submit" class="btn btn-danger">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                 </svg>
@@ -522,4 +550,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<?php include APP_PATH . '/Views/templates/footer.php'; ?>
+<?php /* footer é incluído pelo controller */ ?>
